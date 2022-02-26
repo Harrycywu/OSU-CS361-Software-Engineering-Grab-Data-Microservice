@@ -8,7 +8,7 @@ Description:
            
            Note: Please only enter the value in the range specified above. As for UTC, enter either +0 or -0.
            
-           2. Receive a word, and grab the word definition data from https://api.dictionaryapi.dev/api/v2/entries/en/
+           2. Receive a word, and grab the word definition data from https://dictionaryapi.dev/
            
            Note: Please only enter "one" word, or you will receive an error message 
            
