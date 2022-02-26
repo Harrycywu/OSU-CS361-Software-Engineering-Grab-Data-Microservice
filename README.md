@@ -29,7 +29,7 @@ How to run:
            Eg. 20:14:01
                26th Saturday February 2022
            
-           Enter a word hello, then you will get the definition of that word in the json format 
+           Enter a word hello, then you will get the definition of that word in the JSON format written in the text file
            
            Please refer to the example provided in the following website: https://dictionaryapi.dev/
 
