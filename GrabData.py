@@ -1,7 +1,7 @@
 # Course: CS361 - Software Engineering I
 # Author: Cheng Ying Wu
 # Grab Data Microservice
-# Version: 1.0
+# Version: 1.1
 # Description: Provide two types of functions to grab corresponding website data (Note: Use the text file to communicate)
 #             1. Receive the time zone (-12 ~ +14), and grab the time data from https://www.utctime.net/
 #             2. Receive a word, and grab the word definition data from https://api.dictionaryapi.dev/api/v2/entries/en/
@@ -16,7 +16,7 @@ while True:
     time.sleep(1)
     
     # Open the file grabdata-service.txt
-    data_file = open("./grabdata-service.txt", "r")
+    data_file = open("./grabdata-service.txt", "r", encoding="utf-8")
     # Read the file
     lines = data_file.readlines()
         
@@ -62,7 +62,7 @@ while True:
             date_gotten = result[target_date+61:date_end]
                 
         # Write the time and date gotten from the URL into grabdata-service.txt
-        data_file = open("./grabdata-service.txt", "w")
+        data_file = open("./grabdata-service.txt", "w", encoding="utf-8")
         data_file.writelines(time_gotten + "\n")
         data_file.writelines(date_gotten)
         
@@ -90,7 +90,7 @@ while True:
         except:
             print("Error: No definition for this word!")
             # Write the data gotten from the URL into grabdata-service.txt
-            data_file = open("./grabdata-service.txt", "w")
+            data_file = open("./grabdata-service.txt", "w", encoding="utf-8")
             data_file.writelines("[\n")
             data_file.writelines("No definition for this word! Please change a word.")
             continue
@@ -99,7 +99,7 @@ while True:
         word_def = response.read().decode("utf-8")
         
         # Write the data gotten from the URL into grabdata-service.txt
-        data_file = open("./grabdata-service.txt", "w")
+        data_file = open("./grabdata-service.txt", "w", encoding="utf-8")
         data_file.writelines(word_def)
         
         # Close the file
