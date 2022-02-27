@@ -1,10 +1,11 @@
 # Course: CS361 - Software Engineering I
 # Author: Cheng Ying Wu
 # Grab Data Microservice
-# Version: 1.1 - Solve the encoding problem on different os
-# Description: Provide two types of functions to grab corresponding website data (Note: Use the text file to communicate)
-#             1. Receive the time zone (-12 ~ +14), and grab the time data from https://www.utctime.net/
-#             2. Receive a word, and grab the word definition data from https://api.dictionaryapi.dev/api/v2/entries/en/
+# Version: 1.2 - Add a new function: Get UTC Offset by the given city name
+# Description: Provide three types of functions to grab corresponding website data (Note: Use the text file to communicate)
+#             1. Receive the time zone (-12 ~ +14) (with a starting indicator #), and grab the time data from https://www.utctime.net/
+#             2. Receive the city name (with a starting indicator $), and grab the UTC Offset data from http://www.world-timedate.com/timezone/world_timezone_list.php
+#             3. Receive a word (with a starting indicator @), and grab the word definition data from https://api.dictionaryapi.dev/api/v2/entries/en/
 
 import urllib.request as ur
 import ssl
@@ -21,11 +22,11 @@ while True:
     lines = data_file.readlines()
         
     # Check whether the line in the file begins with "+" or "-"
-    if lines[0][0] == "+" or lines[0][0] == "-":
+    if lines[0][0] == "#":
         print("Activate Grab Time Service!")
         
         # If yes, get the time zone in string type
-        time_zone = lines[0][0] + str(int(lines[0][1:3]))
+        time_zone = lines[0][1] + str(int(lines[0][2:4]))
         
         # Check whether it is UTC and specify the corresponding URL to grab
         if time_zone == "+0" or time_zone == "-0":
@@ -69,13 +70,43 @@ while True:
         # Close the file
         print("Grab Time Service Finished!")
         data_file.close()
+    
+    # Function two: Get UTC Offset
+    elif lines[0][0] == "$":
+        print("Activate Grab UTC Offset Service!")
+        city = lines[0][1:]
         
-    # Function two: Get word definition in json format
-    elif lines[0][0] != "[" and lines[0][0].isdigit() == False:
+        url = "http://www.world-timedate.com/timezone/world_timezone_list.php"
+
+        # Solve the SSL: CERTIFICATE_VERIFY_FAILED error
+        context = ssl._create_unverified_context()
+
+        # Send the request to the specified website and get the response from the URL
+        request = ur.Request(url, data=None, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36"})
+        response = ur.urlopen(request, context=context)
+        # Decode the response
+        result = response.read().decode("utf-8")
+
+        # Get the target data
+        index_city = result.find(city)
+        index_offset = result.find("timer_offset", index_city)
+        index_target = result.find(">", index_offset)
+        offset_data = result[index_target+1:index_target+7]
+
+        # Write the time and date gotten from the URL into grabdata-service.txt
+        data_file = open("./grabdata-service.txt", "w", encoding="utf-8")
+        data_file.writelines(offset_data)
+        
+        # Close the file
+        print("Grab UTC Offset Service Finished!")
+        data_file.close()
+         
+    # Function three: Get word definition in json format
+    elif lines[0][0] == "@":
         print("Activate Grab Word Definition Service!")
         
         # Get the specified word, and send the request to the corresponding website
-        word = lines[0]      
+        word = lines[0][1:]    
         url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
 
         # Solve the SSL: CERTIFICATE_VERIFY_FAILED error
