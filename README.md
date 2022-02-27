@@ -37,7 +37,7 @@ How to run:
            
            Eg. +08:00
            
-           Enter a word @hello, then you will get the definition of that word in the JSON format written in the text file
+           Enter a word, Eg. @hello, then you will get the definition of that word in the JSON format written in the text file
            
            Please refer to the example provided in the following website: https://dictionaryapi.dev/
 
