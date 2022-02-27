@@ -1,7 +1,7 @@
 # Course: CS361 - Software Engineering I
 # Author: Cheng Ying Wu
 # Grab Data Microservice
-# Version: 1.1
+# Version: 1.1 - Solve the encoding problem on different os
 # Description: Provide two types of functions to grab corresponding website data (Note: Use the text file to communicate)
 #             1. Receive the time zone (-12 ~ +14), and grab the time data from https://www.utctime.net/
 #             2. Receive a word, and grab the word definition data from https://api.dictionaryapi.dev/api/v2/entries/en/
