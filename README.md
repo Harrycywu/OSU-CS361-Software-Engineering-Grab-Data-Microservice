@@ -1,4 +1,15 @@
-# CS361-Grab-Data-Microservice
+# CS361 Software Engineering I - Microservice
+Course: CS 361 - Software Engineering I
+
+Term: Winter 2022
+
+**Course Description:**
+
+This course will introduce tools and methods for real-world software development. Topic includes software requirements specification, functional requirements, non-functional requirements, quality attributes, microservices architecture, software process models, UML diagramming, use cases, user stories, project management, usability, paper prototyping, cognitive style heuristics, software design validation, Agile methods, code smells, refactoring, and software development lifecycle.
+
+My Grade: A (101.5%)
+
+# Project Name: Grab Data Microservice
 
 **Description:**
 
